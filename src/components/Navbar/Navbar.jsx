@@ -33,7 +33,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="bg-gradient-to-r from-[#540654] via-[#cc0d85] to-[#540654] animate-gradient">
+    <nav className="sticky top-0 z-10 bg-gradient-to-r from-[#540654] via-[#cc0d85] to-[#540654] animate-gradient">
       <div className="container mx-auto">
         <div className="flex items-center justify-between">
           {/* Logo */}
