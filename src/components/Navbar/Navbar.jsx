@@ -7,10 +7,23 @@ import logo from "../../../public/logo.webp";
 import { MdLogout } from "react-icons/md";
 import { MdLogin } from "react-icons/md";
 import AuthButton from "../ui/AuthButton";
+import { FaBars } from "react-icons/fa6";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  const authButton = (
+    <>
+      
+      <AuthButton href={"/auth/register"}>
+        <MdLogout className="text-lg" />
+        <span className="text-lg">Register</span>
+      </AuthButton>
+      <AuthButton className={"bg-[#800080]"} href={"/auth/login"}>
+        <MdLogin className="text-lg" />
+        <span className="text-lg">Login</span>
+      </AuthButton>
+    </>
+  );
   // Navigation links
   const navLinks = [
     { name: "TUITION JOBS", href: "#" },
@@ -43,35 +56,16 @@ const Navbar = () => {
 
           {/* Register/Login Buttons */}
           <div className="hidden lg:flex items-center space-x-2">
-            <AuthButton href={"/auth/register"}>
-              <MdLogout className="text-lg" />
-              <span className="text-lg">Register</span>
-            </AuthButton>
-            <AuthButton href={"/auth/login"}>
-              <MdLogin className="text-lg" />
-              <span className="text-lg">Login</span>
-            </AuthButton>
+            {authButton}
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            className="inline-flex items-center justify-center rounded-md p-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 lg:hidden"
+            className="inline-flex items-center justify-center lg:hidden"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            <span className="sr-only">Open main menu</span>
-            <svg
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-              />
-            </svg>
+            
+            <FaBars className="text-white text-xl"/>
           </button>
         </div>
 
@@ -89,14 +83,7 @@ const Navbar = () => {
                 </Link>
               ))}
               <div className="mt-4 flex space-x-2 px-3">
-                <AuthButton href={"/auth/register"}>
-                  <MdLogout className="text-lg" />
-                  <span className="text-lg">Register</span>
-                </AuthButton>
-                <AuthButton href={"/auth/login"}>
-                  <MdLogin className="text-lg" />
-                  <span className="text-lg">Login</span>
-                </AuthButton>
+                {authButton}
               </div>
             </div>
           </div>
