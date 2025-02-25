@@ -3,8 +3,9 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="">
-      <FindTutorBanner/>
+    <div className="relative ">
+      <div className=""></div>
+      <FindTutorBanner />
     </div> 
   );
 }

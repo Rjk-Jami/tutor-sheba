@@ -33,7 +33,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="sticky top-0 z-10 bg-gradient-to-r from-[#540654] via-[#cc0d85] to-[#540654] animate-gradient">
+    <nav className="sticky top-0 z-50 bg-gradient-to-r from-[#540654] via-[#cc0d85] to-[#540654] animate-gradient">
       <div className="container mx-auto">
         <div className="flex items-center justify-between">
           {/* Logo */}
@@ -49,7 +49,7 @@ const Navbar = () => {
                 href={link.href}
                 className="text-sm  text-white font-bold "
               >
-                {link.name}
+               <span className="relative  before:content-[''] before:absolute before:top-full before:left-0 before:w-0 before:h-[2px] before:bg-blue-600  before:transition-[width] before:duration-400 before:ease-[cubic-bezier(0.19,1,0.22,1)] hover:before:w-full">{link.name}</span>
               </Link>
             ))}
           </div>
@@ -79,7 +79,7 @@ const Navbar = () => {
                   href={link.href}
                   className="block rounded-md px-3 py-2 text-base font-medium text-white"
                 >
-                  {link.name}
+                  <span className="relative  before:content-[''] before:absolute before:top-full before:left-0 before:w-0 before:h-[2px] before:bg-blue-600  before:transition-[width] before:duration-400 before:ease-[cubic-bezier(0.19,1,0.22,1)] hover:before:w-full">{link.name}</span>
                 </Link>
               ))}
               <div className="mt-4 flex space-x-2 px-3">
