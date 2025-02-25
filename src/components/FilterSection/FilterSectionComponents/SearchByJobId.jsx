@@ -15,7 +15,7 @@ const SearchByJobId = () => {
     <div>
       <FilterHeader>Search By Job Id</FilterHeader>
 
-      <form className="mt-5">
+      <form className="mt-4">
         <input
           type="number"
           name="jobId"

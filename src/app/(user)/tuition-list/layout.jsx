@@ -7,7 +7,8 @@ const layout = ({ children }) => {
     <div className="min-h-screen  bg-white">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          <div className=" hidden lg:block col-span-1">
+          <div className="col-span-1">
+            {/*  hidden lg:block  */}
             <FilterSection />
           </div>
 

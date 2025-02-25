@@ -18,5 +18,10 @@
 .bg-purple{
     background-color: #800080 !important;
 }
-
+.react-datepickerEnd {
+  transform: translateX(-50px); /* Moves it 2px to the left */
+}
+.react-datepickerStart {
+  transform: translateX(50px); /* Moves it 2px to the left */
+}
 
