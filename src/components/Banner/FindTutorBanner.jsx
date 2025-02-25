@@ -8,7 +8,7 @@ import Division from "./Division";
 
 const FindTutorBanner = () => {
   return (
-    <div className="w-full relative   pt-10 ">
+    <div className="w-full relative   pt-10 mb-10">
       <div className="absolute w-full h-full z-10 hidden lg:block lg:-translate-y-14 2xl:-translate-y-56 ">
         <svg
           viewBox="0 0 1855 750"
