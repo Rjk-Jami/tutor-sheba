@@ -26,7 +26,7 @@ const Navbar = () => {
   );
   // Navigation links
   const navLinks = [
-    { name: "TUITION JOBS", href: "#" },
+    { name: "TUITION JOBS", href: "/tuition-list" },
     { name: "PREMIUM TUTORS", href: "#" },
     { name: "TUTOR REQUEST", href: "#" },
     { name: "COURSES", href: "https://course.tutorsheba.com/" },
