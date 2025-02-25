@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 @keyframes bounceCustom {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-10%); } /* Moves up by 10% */

@@ -1,43 +1,34 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import FilterHeader from "../FilterHeader";
-import { useFormik } from "formik";
-import * as Yup from "yup";
 
 const SearchByJobId = () => {
-  const formik = useFormik({
-    initialValues: {
-      jobId: "",
-    },
-    validationSchema: Yup.object({
-      jobId: Yup.number()
-        .typeError("Job ID must be a number")
-        .required("Job ID is required"),
-    }),
-    onSubmit: (values) => {
-      console.log(values);
-    },
-  });
+  const [jobId, setJobId] = useState("");
+
+  const handleChange = (e) => {
+    setJobId(e.target.value);
+    console.log("Current Value:", e.target.value); // Logs value on change
+  };
+  const Tutors = false;
 
   return (
     <div>
       <FilterHeader>Search By Job Id</FilterHeader>
 
-      <form onChange={formik.handleSubmit}>
+      <form className="mt-5">
         <input
           type="number"
           name="jobId"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.jobId}
-          className="border-2 border-gray-300 p-2 rounded"
+          placeholder="Enter job id here..."
+          onChange={handleChange}
+          value={jobId}
+          className={` w-full px-5 py-1.5 font-thin border rounded-md ${
+            Tutors ? "border-red-500" : "border-gray-300"
+          } [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none`}
         />
-        {formik.touched.jobId && formik.errors.jobId ? (
-          <div className="text-red-500">{formik.errors.jobId}</div>
-        ) : null}
       </form>
     </div>
   );
 };
 
 export default SearchByJobId;
-
