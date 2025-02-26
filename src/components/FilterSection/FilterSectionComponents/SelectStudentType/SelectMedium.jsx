@@ -4,7 +4,7 @@ import FilterHeader from '../../FilterHeader';
 import FormSelect from '@/components/FormSelect/FormSelect';
 
 const SelectMedium = () => {
-    const areaOptions = ["All", "area 1", "area 2"];
+    const SelectMedium = ["All", "Medium 1", "Medium 2"];
     
       const [selectedMedium, setSelectedMedium] = useState("All");
       console.log(selectedMedium);
@@ -13,7 +13,7 @@ const SelectMedium = () => {
     <div>
     <FilterHeader>Select Medium</FilterHeader>
     <FormSelect
-      options={areaOptions}
+      options={SelectMedium}
       selectedValue={selectedMedium}
       onChange={setSelectedMedium}
     />
