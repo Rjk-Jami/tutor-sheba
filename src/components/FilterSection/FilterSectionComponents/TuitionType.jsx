@@ -15,12 +15,12 @@ const TuitionType = () => {
         >
           <div className="flex items-center gap-3">
             <input
-              className="checkbox checkbox-md rounded-lg "
+              className="peer hidden"
               type="checkbox"
               // checked={!!colorControl[color.toLowerCase()]}
               //   readOnly
-              defaultChecked
             />
+            <div className="w-5 h-5 border-2 border-[#6C2A8C] rounded-md peer-checked:bg-[#6C2A8C] transition-colors"></div>
 
             <div>All Tuition</div>
           </div>
@@ -34,12 +34,12 @@ const TuitionType = () => {
         >
           <div className="flex items-center gap-3">
             <input
-              className="checkbox checkbox-md rounded-lg "
+              className="peer hidden"
               type="checkbox"
               // checked={!!colorControl[color.toLowerCase()]}
               //   readOnly
-              defaultChecked
             />
+            <div className="w-5 h-5 border-2 border-[#6C2A8C] rounded-md peer-checked:bg-[#6C2A8C] transition-colors"></div>
 
             <div>Home Tuition</div>
           </div>
@@ -53,17 +53,19 @@ const TuitionType = () => {
         >
           <div className="flex items-center gap-3">
             <input
-              className="checkbox checkbox-md rounded-lg "
+              className="peer hidden"
               type="checkbox"
               // checked={!!colorControl[color.toLowerCase()]}
               //   readOnly
-              defaultChecked
+              // checked={userOption.tutor} onChange={() => }
+
             />
+            <div className="w-5 h-5 border-2 border-[#6C2A8C] rounded-md peer-checked:bg-[#6C2A8C] transition-colors"></div>
 
             <div>Online Tuition</div>
           </div>
           <div className={`p-1 rounded-lg bg-[#e0e6f7]`}>
-            <MdMonitor  className="text-[#92096d]" />
+            <MdMonitor className="text-[#92096d]" />
           </div>
         </div>
       </div>
