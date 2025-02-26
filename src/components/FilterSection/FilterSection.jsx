@@ -1,7 +1,9 @@
 import Underline from "../ui/Underline";
 import SearchByDate from "./FilterSectionComponents/SearchByDate";
 import SearchByJobId from "./FilterSectionComponents/SearchByJobId";
+import SelectArea from "./FilterSectionComponents/SelectLocation/SelectArea";
 import SelectDistrict from "./FilterSectionComponents/SelectLocation/SelectDistrict";
+import SelectMedium from "./FilterSectionComponents/SelectStudentType/SelectMedium";
 import TuitionType from "./FilterSectionComponents/TuitionType";
 import TutorPreference from "./FilterSectionComponents/TutorPreference";
 
@@ -27,6 +29,12 @@ const FilterSection = () => {
         </div>
         <div className="mb-5">
             <SelectDistrict/>
+        </div>
+        <div className="mb-5">
+            <SelectArea/>
+        </div>
+        <div className="mb-5">
+            <SelectMedium/>
         </div>
       </div>
     
