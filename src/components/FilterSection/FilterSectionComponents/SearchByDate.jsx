@@ -17,9 +17,13 @@ const SearchByDate = () => {
   };
 
 
-  useEffect(async() => {
-    console.log("Start Date:", startDate, "End Date:", endDate);
-  }, [startDate, endDate]); 
+  useEffect(() => {
+    const fetchData = async () => {
+      console.log("Start Date:", startDate, "End Date:", endDate);
+    };
+
+    fetchData();
+  }, [startDate, endDate]);
 
   return (
     <div>

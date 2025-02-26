@@ -1,6 +1,7 @@
 import Underline from "../ui/Underline";
 import SearchByDate from "./FilterSectionComponents/SearchByDate";
 import SearchByJobId from "./FilterSectionComponents/SearchByJobId";
+import TuitionType from "./FilterSectionComponents/TuitionType";
 
 const FilterSection = () => {
   return (
@@ -15,6 +16,9 @@ const FilterSection = () => {
         </div>
         <div className="mb-5">
             <SearchByDate/>
+        </div>
+        <div className="mb-5">
+            <TuitionType/>
         </div>
       </div>
     
