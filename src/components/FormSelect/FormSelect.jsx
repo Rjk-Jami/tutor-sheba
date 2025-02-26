@@ -1,0 +1,19 @@
+import React from 'react'
+
+const FormSelect = ({ options, selectedValue, onChange }) => {
+  return (
+    <select
+      value={selectedValue}
+      onChange={(e) => onChange(e.target.value)}
+      className="select select-bordered w-full max-full mt-4 px-5 py-1.5 font-normal border rounded-md text-base focus:border-2 border-gray-300 focus:outline-none"
+    >
+      {options.map((option, index) => (
+        <option key={index} value={option}>
+          {option}
+        </option>
+      ))}
+    </select>
+  )
+}
+
+export default FormSelect
