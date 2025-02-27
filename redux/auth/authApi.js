@@ -1,5 +1,5 @@
 import { rootApi } from "../api/rootApi";
-import { Registration } from "./authSlice";
+import { Registration, setUserRole } from "./authSlice";
 
 export const authApi = rootApi.injectEndpoints({
     endpoints: (builder) => ({
@@ -12,8 +12,9 @@ export const authApi = rootApi.injectEndpoints({
             async onQueryStarted(arg, { dispatch, queryFulfilled }) {
                 try {
                     const res = await queryFulfilled;
+                    console.log(res)
                     if(res?.data?.role === "student"){
-                        
+                        dispatch(setUserRole({role:"student"}))
                     }
 
                     if(res?.data?.user){

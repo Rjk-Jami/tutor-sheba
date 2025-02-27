@@ -22,10 +22,11 @@ const authSlice = createSlice({
     // after logout
     logout: (state) => {
       state.user = null;
+      state.role = null
     },
   },
 });
 
-export const { Registration, logout } = authSlice.actions;
+export const { Registration, logout ,setUserRole} = authSlice.actions;
 
 export default authSlice.reducer;
