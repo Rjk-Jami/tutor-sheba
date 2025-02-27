@@ -1,16 +1,19 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useSelector } from "react-redux";
 import Link from "next/link";
+import { toast } from "react-toastify";
+import { IoEye, IoEyeOff } from "react-icons/io5";
 
 const schema = Yup.object({
   password: Yup.string().min(6).required(),
 });
 const UserLogin = () => {
+  const [hide, setHide] = useState(true);
   const userOption = useSelector((state) => state.login.userOption);
-
+  console.log(userOption);
   const formik = useFormik({
     initialValues: {
       emailOrPhone: "",
@@ -20,6 +23,9 @@ const UserLogin = () => {
     validationSchema: schema,
     onSubmit: async (values) => {
       console.log(values);
+      if (!userOption.tutor && !userOption.student) {
+        toast.error("Select user type!");
+      }
     },
   });
 
@@ -42,18 +48,32 @@ const UserLogin = () => {
         />
       </div>
       {/* Password */}
+      <div className="relative">
       <div className="form-control">
         <label className="mb-2 font-bold">
           Password<span className="text-red-500">*</span>
         </label>
         <input
-          type="password"
-          className="w-full px-5 py-1.5 font-thin border rounded-md border-gray-300"
+          type={hide ? "password" : "text"} // Toggle between password and text
+          className=" w-full px-5 py-1.5 font-thin border rounded-md border-gray-300"
           name="password"
           value={values.password}
           onChange={handleChange}
           placeholder="Password.."
         />
+      </div>
+      <button
+        type="button"
+        onClick={() => setHide(!hide)}
+        className="absolute inset-y-4 right-2  items-center justify-center "
+        aria-label={hide ? "Show password" : "Hide password"}
+      >
+        {hide ? (
+          <IoEyeOff className="mt-[1.5rem] " size={20} />
+        ) : (
+          <IoEye className="mt-[1.5rem] " size={20} />
+        )}
+      </button>
       </div>
       <button
         type="submit"
