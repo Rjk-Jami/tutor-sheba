@@ -1,5 +1,5 @@
 import { rootApi } from "../api/rootApi";
-import { Registration, setUserRole } from "./authSlice";
+import { logout, Registration, setUserRole } from "./authSlice";
 
 export const authApi = rootApi.injectEndpoints({
     endpoints: (builder) => ({
@@ -28,8 +28,24 @@ export const authApi = rootApi.injectEndpoints({
                     console.error("Registration failed:", error?.error?.data || error);
                 }
             }
-        })
-    })
-});
+        }),
 
-export const { useRegistrationMutation } = authApi;
+        logout: builder.mutation({
+            query: () => ({
+                url: "/auth/logout",
+                method: "POST",
+            }),            
+            async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+                try {
+                   const res =  await queryFulfilled;
+                //    console.log(res)
+                    dispatch(logout());
+                } catch (error) {
+                    console.error("Logout failed:", error?.error?.data || error);
+                }
+            }
+        }),
+    })
+})
+
+export const { useRegistrationMutation, useLogoutMutation } = authApi;

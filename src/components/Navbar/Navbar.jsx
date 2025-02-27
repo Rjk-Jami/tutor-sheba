@@ -12,49 +12,65 @@ import { useDispatch, useSelector } from "react-redux";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { FaUser } from "react-icons/fa";
 import { logout } from "../../../redux/auth/authSlice";
+import { IoNotificationsSharp } from "react-icons/io5";
+import { useLogoutMutation } from "../../../redux/auth/authApi";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const user = useSelector((state) => state.auth.user);
   const role = useSelector((state) => state.auth.role);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+
+  const [logout, { isLoading }] = useLogoutMutation()
+const handleLogout = async () => {
+  try {
+    await logout()
+  } catch (error) {
+    console.error("Logout failed:", error?.error?.data || error);
+  }
+}
   const authMenu = (
     <>
       {user ? (
-        <div className="">
+        <div className=" flex items-center gap-3">
           <div className="dropdown  dropdown-bottom dropdown-end">
-  <div tabIndex={0} role="button" className="flex items-center gap-2">
-    <span className="text-lg font-semibold text-white">
-      {user?.name}
-    </span>
-    <IoMdArrowDropdown className="text-lg text-white" />
-  </div>
-  <ul
-    tabIndex={0}
-    className="text-base font-medium dropdown-content menu bg-base-100 rounded-box join-item z-[1] w-44 p-0 shadow text-black mt-2" // Added mt-2 for spacing
-  >
-    <li className="rounded-b-0">
-      <div className="flex items-center justify-center gap-2">
-        <FaUser className="text-base text-black" />
-        <Link
-          href={`${
-            role === "student" ? "/student/profile" : "/tutor/profile"
-          }`}
-          className="text-md"
-        >
-          Profile
-        </Link>
-      </div>
-    </li>
-    <li>
-      <div onClick={() => dispatch(logout())} className="flex items-center justify-center gap-2 w-full">
-        <MdLogout className="text-base text-black z-30" />
-        <h1 className="text-md">Logout</h1>
-      </div>
-    </li>
-  </ul>
-</div>
-
+            <div tabIndex={0} role="button" className="flex items-center gap-2">
+              <span className="text-lg font-semibold text-white">
+                {user?.name}
+              </span>
+              <IoMdArrowDropdown className="text-lg text-white" />
+            </div>
+            <ul
+              tabIndex={0}
+              className="text-base font-medium dropdown-content menu bg-base-100 rounded-box join-item z-[1] w-44 p-0 shadow text-black mt-2" // Added mt-2 for spacing
+            >
+              <li className="rounded-b-0">
+                <div className="flex items-center justify-center gap-2">
+                  <FaUser className="text-base text-black" />
+                  <Link
+                    href={`${
+                      role === "student" ? "/student/profile" : "/tutor/profile"
+                    }`}
+                    className="text-md"
+                  >
+                    Profile
+                  </Link>
+                </div>
+              </li>
+              <li>
+                <div
+                  onClick={handleLogout}
+                  className="flex items-center justify-center gap-2 w-full"
+                >
+                  <MdLogout className="text-base text-black z-30" />
+                  <h1 className="text-md">Logout</h1>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <Link href="/" className="">
+            <IoNotificationsSharp  className="text-2xl text-yellow-400"/>
+          </Link>
         </div>
       ) : (
         <>
