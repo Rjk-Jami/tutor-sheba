@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     userOption:{
@@ -23,9 +23,13 @@ export const loginSlice= createSlice({
               state.userOption.student = !state.userOption.student;
               state.userOption.tutor = false; 
             }
-          }
+          },
+          // login :
+          login: (state, action) => {
+            setUser(action.payload.user);
+          },
     }
 })
 
-export const {setLoginUserType}= loginSlice.actions
+export const {setLoginUserType, login}= loginSlice.actions
 export default loginSlice.reducer

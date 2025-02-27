@@ -4,8 +4,8 @@ const initialState = {
     userOption:{
         tutor:true,
         student:false
-    }
-
+    },
+    
     
 }
 
@@ -13,7 +13,8 @@ export const registerSlice= createSlice({
     name:"register",
     initialState,
     reducers:{
-        setUserType: (state, action) => {
+        //use for set user type 
+      setUserType: (state, action) => {
             const userType = action.payload.userType;
             // Toggle the user option based on the userType passed in the action payload
             if (userType === "tutor") {
@@ -23,7 +24,17 @@ export const registerSlice= createSlice({
               state.userOption.student = !state.userOption.student;
               state.userOption.tutor = false; 
             }
-          }
+          },
+
+          // register :
+          
+
+         
+
+
+
+
+
     }
 })
 
