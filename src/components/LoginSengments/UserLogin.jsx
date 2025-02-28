@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import Link from "next/link";
 import { toast } from "react-toastify";
 import { IoEye, IoEyeOff } from "react-icons/io5";
+import { useLoginMutation } from "../../../redux/auth/authApi";
 
 const schema = Yup.object({
   password: Yup.string().min(6).required(),
@@ -13,7 +14,8 @@ const schema = Yup.object({
 const UserLogin = () => {
   const [hide, setHide] = useState(true);
   const userOption = useSelector((state) => state.login.userOption);
-  console.log(userOption);
+  const [login, { isLoading, isError, error }] = useLoginMutation();
+  // console.log(userOption);
   const formik = useFormik({
     initialValues: {
       emailOrPhone: "",
@@ -22,9 +24,32 @@ const UserLogin = () => {
     },
     validationSchema: schema,
     onSubmit: async (values) => {
-      console.log(values);
       if (!userOption.tutor && !userOption.student) {
         toast.error("Select user type!");
+        return;
+      }
+      if (!values.emailOrPhone || !values.password) {
+        toast.error("All fields are required!");
+        return;
+      }
+
+      const role = userOption.tutor
+        ? "tutor"
+        : userOption.student
+        ? "student"
+        : null;
+
+      if (role) {
+        const userInfo = {
+          userDetails: {
+            [userOption.tutor ? "email" : "phone"]: values.emailOrPhone,
+            password: values.password,
+          },
+          role,
+        };
+
+        const result = await login({ userInfo }).unwrap();
+        // console.log(result);
       }
     },
   });
@@ -40,7 +65,11 @@ const UserLogin = () => {
         </label>
         <input
           type="text"
-          className="w-full px-5 py-1.5 font-thin border rounded-md border-gray-300"
+          className={` w-full  px-5 py-1.5 font-thin border rounded-md ${
+            errors.emailOrPhone && touched.emailOrPhone
+              ? "border-red-500"
+              : "border-gray-300"
+          }`}
           name="emailOrPhone"
           value={values.emailOrPhone}
           onChange={handleChange}
@@ -49,31 +78,31 @@ const UserLogin = () => {
       </div>
       {/* Password */}
       <div className="relative">
-      <div className="form-control">
-        <label className="mb-2 font-bold">
-          Password<span className="text-red-500">*</span>
-        </label>
-        <input
-          type={hide ? "password" : "text"} // Toggle between password and text
-          className=" w-full px-5 py-1.5 font-thin border rounded-md border-gray-300"
-          name="password"
-          value={values.password}
-          onChange={handleChange}
-          placeholder="Password.."
-        />
-      </div>
-      <button
-        type="button"
-        onClick={() => setHide(!hide)}
-        className="absolute inset-y-4 right-4 mt-0.5  items-center justify-center "
-        aria-label={hide ? "Show password" : "Hide password"}
-      >
-        {hide ? (
-          <IoEyeOff className="mt-[1.5rem] " size={20} />
-        ) : (
-          <IoEye className="mt-[1.5rem] " size={20} />
-        )}
-      </button>
+        <div className="form-control">
+          <label className="mb-2 font-bold">
+            Password<span className="text-red-500">*</span>
+          </label>
+          <input
+            type={hide ? "password" : "text"} // Toggle between password and text
+            className=" w-full px-5 py-1.5 font-thin border rounded-md border-gray-300"
+            name="password"
+            value={values.password}
+            onChange={handleChange}
+            placeholder="Password.."
+          />
+        </div>
+        <button
+          type="button"
+          onClick={() => setHide(!hide)}
+          className="absolute inset-y-4 right-4 mt-0.5  items-center justify-center "
+          aria-label={hide ? "Show password" : "Hide password"}
+        >
+          {hide ? (
+            <IoEyeOff className="mt-[1.5rem] " size={20} />
+          ) : (
+            <IoEye className="mt-[1.5rem] " size={20} />
+          )}
+        </button>
       </div>
       <button
         type="submit"
