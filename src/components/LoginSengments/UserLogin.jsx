@@ -39,7 +39,7 @@ const UserLogin = () => {
           : userOption.student
           ? "student"
           : null;
-
+        
         if (role) {
           const userInfo = {
             userDetails: {

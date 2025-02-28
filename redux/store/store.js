@@ -27,6 +27,17 @@ export const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: false, // Required for redux-persist
     }).concat(rootApi.middleware),
+    devTools: process.env.NODE_ENV !== 'production'
 });
 
 export const persistor = persistStore(store);
+
+const verifySessionMaster = async () => {
+  try {
+      const res = await store.dispatch(rootApi.endpoints.verifySession.initiate({}, { forceRefetch: true }));
+      // console.log(res, "verifySessionMaster");
+  } catch (error) {
+      // console.log(error, "verifySessionMaster");
+  }
+}
+verifySessionMaster();
