@@ -65,7 +65,7 @@ const UserLogin = () => {
       <button
         type="button"
         onClick={() => setHide(!hide)}
-        className="absolute inset-y-4 right-2  items-center justify-center "
+        className="absolute inset-y-4 right-4 mt-0.5  items-center justify-center "
         aria-label={hide ? "Show password" : "Hide password"}
       >
         {hide ? (
