@@ -47,7 +47,7 @@ export const authApi = rootApi.injectEndpoints({
           }
 
           if (res?.data?.user) {
-            console.log(res?.data?.user);
+            // console.log(res?.data?.user);
             dispatch(Registration({ user: res.data.user }));
           }
 

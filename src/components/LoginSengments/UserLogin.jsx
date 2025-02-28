@@ -33,23 +33,33 @@ const UserLogin = () => {
         return;
       }
 
-      const role = userOption.tutor
-        ? "tutor"
-        : userOption.student
-        ? "student"
-        : null;
+      try {
+        const role = userOption.tutor
+          ? "tutor"
+          : userOption.student
+          ? "student"
+          : null;
 
-      if (role) {
-        const userInfo = {
-          userDetails: {
-            [userOption.tutor ? "email" : "phone"]: values.emailOrPhone,
-            password: values.password,
-          },
-          role,
-        };
+        if (role) {
+          const userInfo = {
+            userDetails: {
+              [userOption.tutor ? "email" : "phone"]: values.emailOrPhone,
+              password: values.password,
+            },
+            role,
+          };
 
-        const result = await login({ userInfo }).unwrap();
-        // console.log(result);
+          const result = await login({ userInfo }).unwrap();
+          console.log(result);
+          if (!result?.success) {
+            console.log(result);
+
+            // toast.success(result?.data?.message);
+          }
+        }
+      } catch (error) {
+        // console.error("Login failed:", error?.error?.data || error);
+        toast.error(error?.data?.message);
       }
     },
   });
