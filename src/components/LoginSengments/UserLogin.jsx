@@ -50,9 +50,9 @@ const UserLogin = () => {
           };
 
           const result = await login({ userInfo }).unwrap();
-          console.log(result);
+          // console.log(result);
           if (!result?.success) {
-            console.log(result);
+            // console.log(result);
 
             // toast.success(result?.data?.message);
           }
