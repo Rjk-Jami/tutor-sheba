@@ -91,7 +91,7 @@ const handleLogout = async () => {
     { name: "TUITION JOBS", href: "/tuition-list" },
     { name: "PREMIUM TUTORS", href: "#" },
     { name: "TUTOR REQUEST", href: "#" },
-    { name: "COURSES", href: "https://course.tutorsheba.com/" },
+    { name: "COURSES", href: "#" },
   ];
 
   return (
