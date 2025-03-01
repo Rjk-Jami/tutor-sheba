@@ -10,33 +10,9 @@ import {
   useGetDistrictsQuery,
   useGetLocationsQuery,
 } from "../../../../redux/api/rootApi";
-const customStyle = {
-  control: (base, state) => ({
-    ...base,
-    border: state.isFocused ? "1px solid #000000" : "1px solid #d1d5db",
+import { customStyle } from "@/components/ui/selectCustomStyle";
 
-    padding: "0.1rem",
-    boxShadow: "none",
-    lineHeight: "1.25rem",
-    fontSize: "0.875rem",
-    fontWeight: "100",
-    outline: state.isFocused ? "1px solid #000000" : "none",
-    "&:hover": {
-      borderColor: "",
-    },
-  }),
-
-  option: (base, state) => ({
-    ...base,
-    padding: "0.5rem",
-    cursor: "pointer",
-    backgroundColor: state.isFocused ? "#1967D2" : "white",
-    color: state.isFocused ? "#ffffff" : "#000000",
-    "&:hover": {
-      backgroundColor: "",
-    },
-  }),
-};
+// form validation
 const schema = Yup.object({
   name: Yup.string().required("Name is required"),
   gender: Yup.string().required("Select your gender"),
@@ -57,12 +33,6 @@ const schema = Yup.object({
     .required("Preferred area is required"),
 });
 
-const areaOptions = [
-  { value: "area1", label: "Area 1" },
-  { value: "area2", label: "Area 2" },
-  { value: "area3", label: "Area 3" },
-  { value: "area4", label: "Area 4" },
-];
 const RegisterTutor = () => {
   const userOption = useSelector((state) => state.register.userOption);
   const { data: districts = [], isLoading: districtsLoading } =
@@ -73,6 +43,7 @@ const RegisterTutor = () => {
     useGetLocationsQuery(selectedDistrict, {
       skip: !selectedDistrict, // Skip query if no district is selected
     });
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -95,6 +66,10 @@ const RegisterTutor = () => {
   // this is for toast notification
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    if (!userOption.tutor && !userOption.student) {
+      toast.error("Select user type!");
+      return;
+    }
     formik.validateForm().then((errors) => {
       if (Object.keys(errors).length > 0) {
         Object.values(errors).forEach((error) => {
@@ -105,16 +80,19 @@ const RegisterTutor = () => {
       }
     });
   };
+  // catch location
   const handleDistrictChange = (e) => {
     setSelectedDistrict(e.target.value);
   };
+
+  //catch preferred area and put them in an array
   const handlePreferredAreaChange = (selectedOptions) => {
     formik.setFieldValue(
       "preferredArea",
       selectedOptions ? selectedOptions.map((option) => option.value) : []
     );
   };
-  // console.log(districts)
+  // console.log(locations);
   return (
     <form
       onSubmit={handleFormSubmit}
@@ -238,12 +216,24 @@ const RegisterTutor = () => {
         </label>
         <Select
           isMulti
+          // imported styles
           styles={customStyle}
           name="preferredArea"
-          options={areaOptions}
-          value={areaOptions.filter((option) =>
-            values.preferredArea.includes(option.value)
-          )}
+          placeholder="Select preferred tuition areas"
+          // select options
+          options={locations?.map((location) => ({
+            value: location._id,
+            label: location.name,
+          }))}
+          // select value
+          value={locations
+            ?.filter((location) =>
+              formik.values.preferredArea.includes(location._id)
+            )
+            .map((location) => ({
+              value: location._id,
+              label: location.name,
+            }))}
           onChange={handlePreferredAreaChange}
           className=""
           classNamePrefix="select"
