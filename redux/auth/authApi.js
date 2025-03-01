@@ -12,19 +12,19 @@ export const authApi = rootApi.injectEndpoints({
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
           const res = await queryFulfilled;
-          console.log(res);
-          if (res?.data?.role === "student") {
-            dispatch(setUserRole({ role: "student" }));
+          // console.log(res);
+          if (res?.data?.role) {
+            dispatch(setUserRole({ role: res?.data?.role }));
           }
 
           if (res?.data?.user) {
-            console.log(res?.data?.user);
+            // console.log(res?.data?.user);
             dispatch(Registration({ user: res.data.user }));
           }
 
           // console.log("Registration successful:", res);
         } catch (error) {
-          console.error("Registration failed:", error?.error?.data || error);
+          // console.error("Registration failed:", error?.error?.data || error);
         }
       },
     }),

@@ -28,7 +28,7 @@ const RegisterStudent = () => {
       rePassword: "",
     },
     validationSchema: schema,
-    onSubmit: async (values, errors) => {
+    onSubmit: async (values, { setSubmitting, setErrors }) => {
       console.log("Form Submitted with values:", values);
 
       const userInfo = {
@@ -41,8 +41,13 @@ const RegisterStudent = () => {
       };
 
       try {
-        await registration({ userInfo }).unwrap();
-      } catch (error) {}
+        const result = await registration({ userInfo }).unwrap();
+      } catch (error) {
+        // console.error("Registration failed:", error?.data || error);
+        toast.error(error?.data?.message);
+      }finally{
+        setSubmitting(false);
+      }
     },
   });
 

@@ -5,12 +5,13 @@ import * as Yup from "yup";
 import dynamic from "next/dynamic";
 const Select = dynamic(() => import("react-select"), { ssr: false });
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   useGetDistrictsQuery,
   useGetLocationsQuery,
 } from "../../../../redux/api/rootApi";
 import { customStyle } from "@/components/ui/selectCustomStyle";
+import { useRegistrationMutation } from "../../../../redux/auth/authApi";
 
 // form validation
 const schema = Yup.object({
@@ -35,14 +36,21 @@ const schema = Yup.object({
 
 const RegisterTutor = () => {
   const userOption = useSelector((state) => state.register.userOption);
+  // RTK Query for District
   const { data: districts = [], isLoading: districtsLoading } =
     useGetDistrictsQuery();
+
   const [selectedDistrict, setSelectedDistrict] = useState("");
 
+  // RTK Query for Location for selected district
   const { data: locations = [], isLoading: locationsLoading } =
     useGetLocationsQuery(selectedDistrict, {
       skip: !selectedDistrict, // Skip query if no district is selected
     });
+  // RTK mutation for Register
+  const [registration, { isLoading, isError, error }] =
+    useRegistrationMutation();
+
 
   const formik = useFormik({
     initialValues: {
@@ -58,7 +66,28 @@ const RegisterTutor = () => {
     },
     validationSchema: schema,
     onSubmit: async (values) => {
-      console.log("Form Submitted with values:", values);
+      // console.log("Form Submitted with values:", values);
+      const userInfo = {
+        userDetails: {
+          name: values.name,
+          email: values.email,
+          phone: values.phone,
+          gender: values.gender,
+          district: values.district,
+          location: values.location,
+          preferredArea: values.preferredArea,
+          password: values.password,
+        },
+        role: "tutor",
+      };
+      try {
+        console.log(userInfo, "userInfo");
+        const res = await registration({userInfo}).unwrap();
+        console.log(res)
+      } catch (error) {
+        // console.error("Registration failed:", error?.error?.data || error);
+        toast.error(error?.data?.message);
+      }
     },
   });
 
@@ -137,12 +166,12 @@ const RegisterTutor = () => {
           Email<span className="text-red-500">*</span>
         </label>
         <input
+          placeholder="ex: user@gmail.com"
           type="email"
           className="w-full px-5 py-1.5 font-thin border rounded-md border-gray-300"
           name="email"
           value={values.email}
           onChange={handleChange}
-          placeholder="Email.."
         />
       </div>
 
