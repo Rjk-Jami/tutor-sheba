@@ -1,38 +1,42 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import dynamic from "next/dynamic";
 const Select = dynamic(() => import("react-select"), { ssr: false });
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
+import {
+  useGetDistrictsQuery,
+  useGetLocationsQuery,
+} from "../../../../redux/api/rootApi";
 const customStyle = {
-    control: (base, state) => ({
-      ...base,
-      border: state.isFocused ? "1px solid #000000" : "1px solid #d1d5db",
-      
-      padding: "0.1rem",
-      boxShadow: "none",
-      lineHeight: "1.25rem",
-      fontSize: "0.875rem",
-      fontWeight: "100",
-      outline: state.isFocused ? "1px solid #000000" : "none",
-      "&:hover": {
-        borderColor: "",
-      },
-    }),
-    
-    option: (base, state) => ({
-      ...base,
-      padding: "0.5rem",
-      cursor: "pointer",
-      backgroundColor: state.isFocused ? "#1967D2" : "white",
-      color: state.isFocused ? "#ffffff" : "#000000",
-      "&:hover": {
-        backgroundColor: "",
-      },
-    }),
-  };
+  control: (base, state) => ({
+    ...base,
+    border: state.isFocused ? "1px solid #000000" : "1px solid #d1d5db",
+
+    padding: "0.1rem",
+    boxShadow: "none",
+    lineHeight: "1.25rem",
+    fontSize: "0.875rem",
+    fontWeight: "100",
+    outline: state.isFocused ? "1px solid #000000" : "none",
+    "&:hover": {
+      borderColor: "",
+    },
+  }),
+
+  option: (base, state) => ({
+    ...base,
+    padding: "0.5rem",
+    cursor: "pointer",
+    backgroundColor: state.isFocused ? "#1967D2" : "white",
+    color: state.isFocused ? "#ffffff" : "#000000",
+    "&:hover": {
+      backgroundColor: "",
+    },
+  }),
+};
 const schema = Yup.object({
   name: Yup.string().required("Name is required"),
   gender: Yup.string().required("Select your gender"),
@@ -40,6 +44,8 @@ const schema = Yup.object({
   phone: Yup.string()
     .matches(/^01[3-9]\d{8}$/, "Enter a valid Bangladeshi phone number")
     .required("Phone number is required"),
+  district: Yup.string().required("Select your district"),
+  location: Yup.string().required("Select your location"),
   password: Yup.string()
     .min(6, "Password must be at least 6 characters")
     .required("Password is required"),
@@ -50,6 +56,7 @@ const schema = Yup.object({
     .min(1, "Select at least one area")
     .required("Preferred area is required"),
 });
+
 const areaOptions = [
   { value: "area1", label: "Area 1" },
   { value: "area2", label: "Area 2" },
@@ -58,7 +65,14 @@ const areaOptions = [
 ];
 const RegisterTutor = () => {
   const userOption = useSelector((state) => state.register.userOption);
+  const { data: districts = [], isLoading: districtsLoading } =
+    useGetDistrictsQuery();
+  const [selectedDistrict, setSelectedDistrict] = useState("");
 
+  const { data: locations = [], isLoading: locationsLoading } =
+    useGetLocationsQuery(selectedDistrict, {
+      skip: !selectedDistrict, // Skip query if no district is selected
+    });
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -78,16 +92,32 @@ const RegisterTutor = () => {
   });
 
   const { values, touched, errors, handleChange, handleSubmit } = formik;
-
+  // this is for toast notification
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    formik.validateForm().then((errors) => {
+      if (Object.keys(errors).length > 0) {
+        Object.values(errors).forEach((error) => {
+          toast.error(error, { position: "top-right" });
+        });
+      } else {
+        formik.handleSubmit();
+      }
+    });
+  };
+  const handleDistrictChange = (e) => {
+    setSelectedDistrict(e.target.value);
+  };
   const handlePreferredAreaChange = (selectedOptions) => {
     formik.setFieldValue(
       "preferredArea",
       selectedOptions ? selectedOptions.map((option) => option.value) : []
     );
   };
+  // console.log(districts)
   return (
     <form
-      onSubmit={handleSubmit}
+      onSubmit={handleFormSubmit}
       className=" grid  md:grid-cols-2 grid-cols-1 gap-5"
     >
       <div className="form-control">
@@ -161,13 +191,23 @@ const RegisterTutor = () => {
           className="w-full px-5 py-1.5 font-thin border rounded-md border-gray-300"
           name="district"
           value={values.district}
-          onChange={handleChange}
+          onChange={(e) => {
+            handleChange(e);
+            handleDistrictChange(e);
+          }}
         >
           <option value="" disabled>
             Select district
           </option>
-          <option value="dhaka">dhaka</option>
-          <option value="Bogura">Bogura</option>
+          {districtsLoading ? (
+            <option>Loading districts...</option>
+          ) : (
+            districts.map((district) => (
+              <option key={district._id} value={district._id}>
+                {district.name}
+              </option>
+            ))
+          )}
         </select>
       </div>
       {/* Your Location */}
@@ -184,8 +224,11 @@ const RegisterTutor = () => {
           <option value="" disabled>
             Select location
           </option>
-          <option value="dhaka">dhaka</option>
-          <option value="Bogura">Bogura</option>
+          {locations?.map((location) => (
+            <option key={location._id} value={location._id}>
+              {location.name}
+            </option>
+          ))}
         </select>
       </div>
       {/* Preferred Tuition Area (Multi-Select) */}
@@ -200,7 +243,6 @@ const RegisterTutor = () => {
           options={areaOptions}
           value={areaOptions.filter((option) =>
             values.preferredArea.includes(option.value)
-            
           )}
           onChange={handlePreferredAreaChange}
           className=""
@@ -208,41 +250,42 @@ const RegisterTutor = () => {
         />
         <p className="text-sm text-muted">Set your preferred tuition area.</p>
       </div>
-       {/* Password */}
-       <div className="form-control">
-            <label className="mb-2 font-bold">
-              Password<span className="text-red-500">*</span>
-            </label>
-            <input
-              type="password"
-              className="w-full px-5 py-1.5 font-thin border rounded-md border-gray-300"
-              name="password"
-              value={values.password}
-              onChange={handleChange}
-              placeholder="Password.."
-            />
-            
-          </div>
+      {/* Password */}
+      <div className="form-control">
+        <label className="mb-2 font-bold">
+          Password<span className="text-red-500">*</span>
+        </label>
+        <input
+          type="password"
+          className="w-full px-5 py-1.5 font-thin border rounded-md border-gray-300"
+          name="password"
+          value={values.password}
+          onChange={handleChange}
+          placeholder="Password.."
+        />
+      </div>
 
-          {/* Confirm Password */}
-          <div className="form-control">
-            <label className="mb-2 font-bold">
-              Confirm Password<span className="text-red-500">*</span>
-            </label>
-            <input
-              type="password"
-              className="w-full px-5 py-1.5 font-thin border rounded-md border-gray-300"
-              name="rePassword"
-              value={values.rePassword}
-              onChange={handleChange}
-              placeholder="Confirm Password.."
-            />
-           
-          </div>
-          {/* Submit Button */}
-          <button type="submit" className="md:col-span-2 w-full bg-[#b40c7b] border border-black text-white py-2 rounded-md font-bold transition-all duration-[250ms] transform hover:-translate-y-[3px] hover:ease-[cubic-bezier(0.02,0.01,0.47,1)]">
-            Submit & Register
-          </button>
+      {/* Confirm Password */}
+      <div className="form-control">
+        <label className="mb-2 font-bold">
+          Confirm Password<span className="text-red-500">*</span>
+        </label>
+        <input
+          type="password"
+          className="w-full px-5 py-1.5 font-thin border rounded-md border-gray-300"
+          name="rePassword"
+          value={values.rePassword}
+          onChange={handleChange}
+          placeholder="Confirm Password.."
+        />
+      </div>
+      {/* Submit Button */}
+      <button
+        type="submit"
+        className="md:col-span-2 w-full bg-[#b40c7b] border border-black text-white py-2 rounded-md font-bold transition-all duration-[250ms] transform hover:-translate-y-[3px] hover:ease-[cubic-bezier(0.02,0.01,0.47,1)]"
+      >
+        Submit & Register
+      </button>
     </form>
   );
 };

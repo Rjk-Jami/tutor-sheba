@@ -36,8 +36,11 @@ const verifySessionMaster = async () => {
   try {
       const res = await store.dispatch(rootApi.endpoints.verifySession.initiate({}, { forceRefetch: true }));
       // console.log(res, "verifySessionMaster");
+      
+      
   } catch (error) {
       // console.log(error, "verifySessionMaster");
+      
   }
 }
 verifySessionMaster();

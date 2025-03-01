@@ -37,7 +37,7 @@ export const authApi = rootApi.injectEndpoints({
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
           const res = await queryFulfilled;
-          
+
           if (res?.data?.role === "student") {
             dispatch(setUserRole({ role: "student" }));
           } else if (res?.data?.role === "tutor") {
@@ -53,7 +53,7 @@ export const authApi = rootApi.injectEndpoints({
 
           // console.log("Registration successful:", res);
         } catch (error) {
-        // console.error("Registration failed:", error?.error?.data || error);
+          // console.error("Registration failed:", error?.error?.data || error);
         }
       },
     }),
@@ -66,10 +66,10 @@ export const authApi = rootApi.injectEndpoints({
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
           const res = await queryFulfilled;
-          //    console.log(res)
+          console.log(res);
           dispatch(logout());
         } catch (error) {
-          console.error("Logout failed:", error?.error?.data || error);
+          // console.error("Logout failed:", error?.error?.data || error);
         }
       },
     }),
