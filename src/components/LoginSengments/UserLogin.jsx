@@ -7,6 +7,7 @@ import Link from "next/link";
 import { toast } from "react-toastify";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { useLoginMutation } from "../../../redux/auth/authApi";
+import { useRouter } from "next/navigation";
 
 const schema = Yup.object({
   password: Yup.string().min(6).required(),
@@ -15,6 +16,8 @@ const UserLogin = () => {
   const [hide, setHide] = useState(true);
   const userOption = useSelector((state) => state.login.userOption);
   const [login, { isLoading, isError, error }] = useLoginMutation();
+
+  const router = useRouter();
   // console.log(userOption);
   const formik = useFormik({
     initialValues: {
@@ -39,7 +42,7 @@ const UserLogin = () => {
           : userOption.student
           ? "student"
           : null;
-        
+
         if (role) {
           const userInfo = {
             userDetails: {
@@ -50,12 +53,11 @@ const UserLogin = () => {
           };
 
           const result = await login({ userInfo }).unwrap();
-          // console.log(result);
-          if (!result?.success) {
-            // console.log(result);
-
-            // toast.success(result?.data?.message);
+          console.log(result);
+          if (result?.success) {
+            router.back();
           }
+          
         }
       } catch (error) {
         // console.error("Login failed:", error?.error?.data || error);

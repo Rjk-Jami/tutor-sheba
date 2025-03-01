@@ -3,6 +3,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
 import { useRegistrationMutation } from "../../../../redux/auth/authApi";
+import { useRouter } from "next/navigation";
 
 const schema = Yup.object({
   name: Yup.string().required("Name is required"),
@@ -18,6 +19,7 @@ const schema = Yup.object({
 });
 
 const RegisterStudent = () => {
+  const router = useRouter();
   const [registration, { isLoading, isError, error }] =
     useRegistrationMutation();
   const formik = useFormik({
@@ -42,6 +44,10 @@ const RegisterStudent = () => {
 
       try {
         const result = await registration({ userInfo }).unwrap();
+        
+        if (result?.success) {
+          router.push("/");
+         }
       } catch (error) {
         // console.error("Registration failed:", error?.data || error);
         toast.error(error?.data?.message);

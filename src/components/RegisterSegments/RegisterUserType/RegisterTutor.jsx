@@ -12,6 +12,7 @@ import {
 } from "../../../../redux/api/rootApi";
 import { customStyle } from "@/components/ui/selectCustomStyle";
 import { useRegistrationMutation } from "../../../../redux/auth/authApi";
+import { useRouter } from "next/navigation";
 
 // form validation
 const schema = Yup.object({
@@ -35,6 +36,7 @@ const schema = Yup.object({
 });
 
 const RegisterTutor = () => {
+  const router = useRouter();
   const userOption = useSelector((state) => state.register.userOption);
   // RTK Query for District
   const { data: districts = [], isLoading: districtsLoading } =
@@ -82,8 +84,11 @@ const RegisterTutor = () => {
       };
       try {
         console.log(userInfo, "userInfo");
-        const res = await registration({userInfo}).unwrap();
-        console.log(res)
+        const result = await registration({userInfo}).unwrap();
+        // console.log(result)
+        if (result?.success) {
+         router.push("/");
+        }
       } catch (error) {
         // console.error("Registration failed:", error?.error?.data || error);
         toast.error(error?.data?.message);
