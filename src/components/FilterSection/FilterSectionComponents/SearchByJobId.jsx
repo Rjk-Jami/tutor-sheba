@@ -1,15 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import FilterHeader from "../FilterHeader";
+import { useDispatch, useSelector } from "react-redux";
+import { setJobId } from "../../../../redux/filter/commonFilterSlice";
 
 const SearchByJobId = () => {
-  const [jobId, setJobId] = useState("");
-
-  const handleChange = (e) => {
-    setJobId(e.target.value);
-    console.log("Current Value:", e.target.value); // Logs value on change
-  };
-  const Tutors = false;
+  const jobId = useSelector((state) => state.filters.jobId);
+  const dispatch = useDispatch();
 
   return (
     <div>
@@ -20,11 +17,10 @@ const SearchByJobId = () => {
           type="number"
           name="jobId"
           placeholder="Enter job id here..."
-          onChange={handleChange}
+          onChange={(e) => dispatch(setJobId(e.target.value))}
           value={jobId}
-          className={` w-full px-5 py-1.5 font-thin border rounded-md ${
-            Tutors ? "border-red-500" : "border-gray-300"
-          } [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none`}
+          className={` w-full px-5 py-1.5 font-thin border rounded-md border-gray-300
+           [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none`}
         />
       </form>
     </div>

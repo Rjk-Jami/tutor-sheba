@@ -2,7 +2,7 @@ const { createSlice } = require("@reduxjs/toolkit");
 
 const initialState = {
   tutorPreferenceType: {
-      all: false,
+      all: true,
       male: false,
       female: false,
     },

@@ -25,7 +25,7 @@ const tutorPreferenceOptions = [
 ];
 const TutorPreference = () => {
   const tutorPreferenceTypes = useSelector((state) => state.tutorPreference.tutorPreferenceType);
-console.log(tutorPreferenceTypes)
+// console.log(tutorPreferenceTypes)
   return (
     <div>
       <FilterHeader>Tutor Preference</FilterHeader>

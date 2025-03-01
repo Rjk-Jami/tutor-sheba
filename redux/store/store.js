@@ -4,6 +4,7 @@ import loginReducer from "../auth/login/loginSlice";
 import authReducer from "../auth/authSlice";
 import tuitionTypeReducer from "../filter/tuitionTypeSlice";
 import tutorPreferenceReducer from "../filter/tutorPreferenceSlice";
+import commonFilterReducer from "../filter/commonFilterSlice";
 import { rootApi } from "../api/rootApi";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // Correct import
@@ -25,7 +26,8 @@ export const store = configureStore({
     auth: persistedAuthReducer,
     [rootApi.reducerPath]: rootApi.reducer,
     tuitionType: tuitionTypeReducer,
-    tutorPreference: tutorPreferenceReducer
+    tutorPreference: tutorPreferenceReducer,
+    filters: commonFilterReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

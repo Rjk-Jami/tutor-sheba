@@ -2,7 +2,7 @@ const { createSlice } = require("@reduxjs/toolkit");
 
 const initialState = {
     tuitionTypes: {
-      allTuition: false,
+      allTuition: true,
       homeTuition: false,
       onlineTuition: false,
     },
