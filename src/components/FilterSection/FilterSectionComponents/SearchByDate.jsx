@@ -1,29 +1,34 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import FilterHeader from "../FilterHeader";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import { toast } from "react-toastify";
+import { setEndDate, setStartDate } from "../../../../redux/filter/dateFilterSlice";
+
 const SearchByDate = () => {
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const dispatch = useDispatch();
+  const { startDate, endDate } = useSelector((state) => state.dateFilter);
 
-  // this is for  he start date picker 
+  const today = new Date().toISOString().split("T")[0]; // Get today's date in YYYY-MM-DD format
+
   const handleSearchStartDate = (e) => {
-    setStartDate(e.target.value);
+    const selectedDate = e.target.value;
+    if (selectedDate > today) {
+      toast.error("Start date cannot be in the future!");
+      return;
+    }
+    dispatch(setStartDate(selectedDate));
   };
-// this is for  he end date picker
+
   const handleSearchEndDate = (e) => {
-    setEndDate(e.target.value);
+    const selectedDate = e.target.value;
+    if (selectedDate > today) {
+      toast.error("End date cannot be in the future!");
+      return;
+    }
+    dispatch(setEndDate(selectedDate));
   };
 
-
-  useEffect(() => {
-    const fetchData = async () => {
-      console.log("Start Date:", startDate, "End Date:", endDate);
-    };
-
-    fetchData();
-  }, [startDate, endDate]);
 
   return (
     <div>
@@ -33,9 +38,9 @@ const SearchByDate = () => {
           <input
             id="start-date"
             type="date"
-            value={startDate}
+            value={startDate || ""}
             onChange={handleSearchStartDate}
-            className="w-full  px-5 py-1.5 font-thin border rounded-md border-gray-300"
+            className="w-full px-5 py-1.5 font-thin border rounded-md border-gray-300"
           />
         </div>
 
@@ -43,7 +48,7 @@ const SearchByDate = () => {
           <input
             id="end-date"
             type="date"
-            value={endDate}
+            value={endDate || ""}
             onChange={handleSearchEndDate}
             className="w-full px-5 py-1.5 font-thin border rounded-md border-gray-300"
           />
