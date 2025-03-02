@@ -1,21 +1,34 @@
-"use client"
-import React, { useState } from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import FilterHeader from "../../FilterHeader";
 import FormSelect from "@/components/FormSelect/FormSelect";
+import { useGetLocationsQuery } from "../../../../../redux/api/rootApi";
+import { useDispatch, useSelector } from "react-redux";
+import { setArea } from "../../../../../redux/filter/commonFilterSlice";
 
 const SelectArea = () => {
-  const areaOptions = ["All", "area 1", "area 2"];
+  const selectedDistrict = useSelector((state) => state.filters.district);
 
-  const [selectedArea, setSelectedArea] = useState("All");
+  // RTK Query for Location for selected district
+  const { data: locations = [], isLoading: locationsLoading } =
+    useGetLocationsQuery(selectedDistrict, {
+      skip: !selectedDistrict && selectedDistrict !== "All", // Skip query if no district is selected
+    });
+  const dispatch = useDispatch();
+  const area = useSelector((state) => state.filters.area);
 
-  console.log(selectedArea);
+  useEffect(() => {
+    if (selectedDistrict === "All") {
+      setArea("All");
+    }
+  }, [selectedDistrict]);
   return (
     <div>
       <FilterHeader>Select Area</FilterHeader>
       <FormSelect
-        options={areaOptions}
-        selectedValue={selectedArea}
-        onChange={setSelectedArea}
+        options={selectedDistrict === "All" ? [] : locations}
+        selectedValue={area}
+        onChange={(e) => dispatch(setArea(e))}
       />
     </div>
   );

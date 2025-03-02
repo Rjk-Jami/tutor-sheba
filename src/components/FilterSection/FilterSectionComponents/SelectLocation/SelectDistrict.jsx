@@ -2,20 +2,24 @@
 import React, { useState } from "react";
 import FilterHeader from "../../FilterHeader";
 import FormSelect from "@/components/FormSelect/FormSelect";
+import { useGetDistrictsQuery } from "../../../../../redux/api/rootApi";
+import { useDispatch, useSelector } from "react-redux";
+import { setDistrict } from "../../../../../redux/filter/commonFilterSlice";
 
 const SelectDistrict = () => {
-  const options = ["All", "Option 1", "Option 2"];
+ const { data: districts = [], isLoading: districtsLoading } =
+    useGetDistrictsQuery();
+  const dispatch = useDispatch()
+  const district = useSelector((state) => state.filters.district);
 
-  const [selectedValue, setSelectedValue] = useState("All");
-
-  console.log(selectedValue);
+  
   return (
     <div>
       <FilterHeader>Select District</FilterHeader>
       <FormSelect
-        options={options}
-        selectedValue={selectedValue}
-        onChange={setSelectedValue}
+        options={districts}
+        selectedValue={district}
+        onChange={(e)=>dispatch(setDistrict(e))}
       />
     </div>
   );
