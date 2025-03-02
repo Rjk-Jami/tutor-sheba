@@ -1,5 +1,4 @@
 "use client";
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import FilterHeader from "../FilterHeader";
 import { toast } from "react-toastify";
@@ -9,8 +8,11 @@ const SearchByDate = () => {
   const dispatch = useDispatch();
   const { startDate, endDate } = useSelector((state) => state.dateFilter);
 
-  const today = new Date().toISOString().split("T")[0]; // Get today's date in YYYY-MM-DD format
+  const today = new Date().toISOString().split("T")[0];
 
+
+
+  // for start date
   const handleSearchStartDate = (e) => {
     const selectedDate = e.target.value;
     if (selectedDate > today) {
@@ -20,6 +22,7 @@ const SearchByDate = () => {
     dispatch(setStartDate(selectedDate));
   };
 
+  // for end date
   const handleSearchEndDate = (e) => {
     const selectedDate = e.target.value;
     if (selectedDate > today) {
