@@ -6,8 +6,11 @@ const initialState = {
   district:"All",
   area:"All",
   medium:"All",
-  classOfMedium:"All"
-
+  classOfMedium:"All",
+  pagination: {
+    page: 1,
+    limit: 10,
+  },
 };
 
 const commonFilterSlice = createSlice({
@@ -29,9 +32,15 @@ const commonFilterSlice = createSlice({
     },
     setClassOfMedium: (state, action) => {
       state.classOfMedium = action.payload;
-    }
+    },
+    setPage: (state, action) => {
+      state.pagination.page = action.payload;
+    },
+    setLimit: (state, action) => {
+      state.pagination.limit = action.payload;
+    },
   },
 });
 
-export const { setJobId,setDistrict, setArea, setMedium, setClassOfMedium } = commonFilterSlice.actions;
+export const { setJobId,setDistrict, setArea, setMedium, setClassOfMedium, setPage, setLimit } = commonFilterSlice.actions;
 export default commonFilterSlice.reducer;

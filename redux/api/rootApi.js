@@ -47,6 +47,14 @@ export const rootApi = createApi({
     getClasses: builder.query({
       query: (mediumId) => `/user/classes?medium=${mediumId}`,
     }),
+    getFilteredTuitions: builder.query({
+      query: ({ filters, page, limit }) => ({
+        url:"/user/tuitions",
+        method:"POST",
+        params:{...filters,page,limit}
+      })
+        
+    })
   }),
 });
 export const {
@@ -54,4 +62,5 @@ export const {
   useGetLocationsQuery,
   useGetMediumsQuery,
   useGetClassesQuery,
+  useGetFilteredTuitionsQuery
 } = rootApi;
