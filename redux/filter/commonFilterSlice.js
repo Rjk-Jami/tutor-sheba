@@ -4,7 +4,10 @@ const { createSlice } = require("@reduxjs/toolkit");
 const initialState = {
   jobId: "",
   district:"All",
-  area:"All"
+  area:"All",
+  medium:"All",
+  classOfMedium:"All"
+
 };
 
 const commonFilterSlice = createSlice({
@@ -20,9 +23,15 @@ const commonFilterSlice = createSlice({
 
     setArea: (state, action) => {
       state.area = action.payload;
+    },
+    setMedium: (state, action) => {
+      state.medium = action.payload;
+    },
+    setClassOfMedium: (state, action) => {
+      state.classOfMedium = action.payload;
     }
   },
 });
 
-export const { setJobId,setDistrict, setArea } = commonFilterSlice.actions;
+export const { setJobId,setDistrict, setArea, setMedium, setClassOfMedium } = commonFilterSlice.actions;
 export default commonFilterSlice.reducer;

@@ -40,6 +40,18 @@ export const rootApi = createApi({
     getLocations: builder.query({
       query: (districtId) => `/user/locations?district=${districtId}`,
     }),
+
+    getMediums: builder.query({
+      query: () => `/user/mediums`,
+    }),
+    getClasses: builder.query({
+      query: (mediumId) => `/user/classes?medium=${mediumId}`,
+    }),
   }),
 });
-export const {useGetDistrictsQuery, useGetLocationsQuery} = rootApi;
+export const {
+  useGetDistrictsQuery,
+  useGetLocationsQuery,
+  useGetMediumsQuery,
+  useGetClassesQuery,
+} = rootApi;

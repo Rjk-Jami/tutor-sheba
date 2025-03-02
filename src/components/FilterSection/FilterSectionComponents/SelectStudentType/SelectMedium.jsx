@@ -2,20 +2,24 @@
 import React, { useState } from 'react'
 import FilterHeader from '../../FilterHeader';
 import FormSelect from '@/components/FormSelect/FormSelect';
+import { useGetMediumsQuery } from '../../../../../redux/api/rootApi';
+import { useDispatch, useSelector } from 'react-redux';
+import { setMedium } from '../../../../../redux/filter/commonFilterSlice';
 
 const SelectMedium = () => {
-    const SelectMedium = ["All", "Medium 1", "Medium 2"];
+    const { data: mediums = [], isLoading: mediumsLoading } =
+        useGetMediumsQuery();
     
-      const [selectedMedium, setSelectedMedium] = useState("All");
-      console.log(selectedMedium);
+        const medium = useSelector((state) => state.filters.medium);
+        const dispatch = useDispatch()
 
   return (
     <div>
     <FilterHeader>Select Medium</FilterHeader>
     <FormSelect
-      options={SelectMedium}
-      selectedValue={selectedMedium}
-      onChange={setSelectedMedium}
+      options={mediums}
+      selectedValue={medium}
+      onChange={(e)=>dispatch(setMedium(e))}
     />
   </div>
   )
