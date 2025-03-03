@@ -9,7 +9,8 @@ import Button from "@/components/ui/Button";
 import Link from "next/link";
 
 
-const TuitionCard = ({ tuition }) => {
+
+const TuitionCard = ({ tuition, isLoading }) => {
   const {
     jobId,
     title,
@@ -27,7 +28,7 @@ const TuitionCard = ({ tuition }) => {
     postedAt,
   } = tuition;
   return (
-    <div className="bg-[#f8f9fa] rounded-lg p-5 shadow-xl transition-all duration-[250ms] transform hover:-translate-y-[3px] hover:ease-[cubic-bezier(0.02,0.01,0.47,1)]">
+    <div className={`bg-[#f8f9fa] rounded-lg p-5 shadow-xl transition-all duration-[250ms] transform hover:-translate-y-[3px] hover:ease-[cubic-bezier(0.02,0.01,0.47,1)] `}>
       <div className="flex items-center justify-between">
         {/* location */}
       <div className=" flex items-center gap-2">

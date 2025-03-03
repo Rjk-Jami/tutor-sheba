@@ -58,73 +58,90 @@ const TuitionList = () => {
           <div className="mt-4 lg:col-span-3 lg:mx-0 overflow-y-scroll h-screen scrollbar-hide">
             <div className="mb-20">
               <div>
-                {data?.meta && (
-                  <div className=" flex items-center justify-between w-full">
-                    <div className="">
-                      <p className="text-sm text-muted">
-                        {" "}
-                        Showing{" "}
-                        <span className="font-bold">
-                          {startIndex}-{endIndex}
-                        </span>{" "}
-                        of{" "}
-                        <span className="font-bold">
-                          {data.meta.totalTuitions}
-                        </span>{" "}
-                        jobs
-                      </p>
+                {isLoading
+                  ? ( 
+                    <div className="flex flex-col gap-4">
+                      <div className="skeleton  h-52 w-full"></div>
+                      <div className="skeleton  h-52 w-full"></div>
+                      <div className="skeleton  h-52 w-full"></div>
+                      <div className="skeleton  h-52 w-full"></div>
+                      <div className="skeleton  h-52 w-full"></div>
+                      <div className="skeleton  h-52 w-full"></div>
                     </div>
-                    <div className="">
-                      <div className="dropdown  dropdown-bottom dropdown-end">
-                        <div
-                          tabIndex={0}
-                          role="button"
-                          className="flex items-center gap-2 text-muted border border-muted px-2 py-1.5 rounded-md "
-                        >
-                          <span className="text-sm font-semibold ">
-                            Show: {limit}
-                          </span>
-                          <IoMdArrowDropdown className="text-sm " />
+                  )
+                  : data?.meta && (
+                      <div className=" flex items-center justify-between w-full">
+                        <div className="">
+                          <p className="text-sm text-muted">
+                            {" "}
+                            Showing{" "}
+                            <span className="font-bold">
+                              {startIndex}-{endIndex}
+                            </span>{" "}
+                            of{" "}
+                            <span className="font-bold">
+                              {data.meta.totalTuitions}
+                            </span>{" "}
+                            jobs
+                          </p>
                         </div>
-                        <div
-                          tabIndex={0}
-                          className="dropdown-content join w-full  join-vertical z-20"
-                        >
-                          <button
-                            onClick={() => dispatch(setLimit(5))}
-                            className="btn btn-sm join-item"
-                          >
-                            5
-                          </button>
-                          <button
-                            onClick={() => dispatch(setLimit(10))}
-                            className="btn btn-sm join-item"
-                          >
-                            10
-                          </button>
-                          <button
-                            onClick={() => dispatch(setLimit(15))}
-                            className="btn btn-sm join-item"
-                          >
-                            15
-                          </button>
-                          <button
-                            onClick={() => dispatch(setLimit(20))}
-                            className="btn btn-sm join-item"
-                          >
-                            20
-                          </button>
+                        <div className="">
+                          <div className="dropdown  dropdown-bottom dropdown-end">
+                            <div
+                              tabIndex={0}
+                              role="button"
+                              className="flex items-center gap-2 text-muted border border-muted px-2 py-1.5 rounded-md "
+                            >
+                              <span className="text-sm font-semibold ">
+                                Show: {limit}
+                              </span>
+                              <IoMdArrowDropdown className="text-sm " />
+                            </div>
+                            <div
+                              tabIndex={0}
+                              className="dropdown-content join w-full  join-vertical z-20"
+                            >
+                              <button
+                                onClick={() => dispatch(setLimit(5))}
+                                className="btn btn-sm join-item"
+                              >
+                                5
+                              </button>
+                              <button
+                                onClick={() => dispatch(setLimit(10))}
+                                className="btn btn-sm join-item"
+                              >
+                                10
+                              </button>
+                              <button
+                                onClick={() => dispatch(setLimit(15))}
+                                className="btn btn-sm join-item"
+                              >
+                                15
+                              </button>
+                              <button
+                                onClick={() => dispatch(setLimit(20))}
+                                className="btn btn-sm join-item"
+                              >
+                                20
+                              </button>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                )}
+                    )}
               </div>
+
               <div className="flex flex-col gap-4 mt-4">
                 {data?.data?.map((tuition, tuitionIndex) => (
-                  <TuitionCard  tuition={tuition} key={tuitionIndex} />
+                  <TuitionCard
+                    isLoading={isLoading}
+                    tuition={tuition}
+                    key={tuitionIndex}
+                  />
                 ))}
               </div>
+
               {/* Pagination Controls */}
               {data?.meta && (
                 <Pagination
