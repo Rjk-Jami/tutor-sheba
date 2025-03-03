@@ -6,7 +6,7 @@ import { FaTelegram } from "react-icons/fa";
 import { FaWhatsapp } from "react-icons/fa";
 
 const SocialMediaShare = ({ id }) => {
-    const url = `https://example.com/tuition-list/${id}`;
+    const url = `https://tutor-shebabd.vercel.app/tuition-list/${id}`;
 
     return (
         <div className='text-lg font-semibold flex flex-col gap-1 items-center'>
