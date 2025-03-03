@@ -19,7 +19,7 @@ import {
 import { HiAcademicCap } from "react-icons/hi2";
 import { IoTime, IoTodaySharp } from "react-icons/io5";
 import { MdClass, MdMonitor } from "react-icons/md";
-import { formatDistanceToNow } from "date-fns";
+
 import { useSelector } from "react-redux";
 import SocialMediaShare from "@/components/SocialMediaShare/SocialMediaShare";
 
