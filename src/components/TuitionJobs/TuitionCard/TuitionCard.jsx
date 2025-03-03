@@ -6,6 +6,8 @@ import { IoTodaySharp } from "react-icons/io5";
 import { MdClass, MdMonitor } from "react-icons/md";
 import { HiAcademicCap } from "react-icons/hi2";
 import Button from "@/components/ui/Button";
+import Link from "next/link";
+
 
 const TuitionCard = ({ tuition }) => {
   const {
@@ -40,7 +42,7 @@ const TuitionCard = ({ tuition }) => {
       </div>
       </div>
       {/* title */}
-      <div className="text-xl font-bold mt-2">{title}</div>
+      <Link href={`/tuition-list/${tuition._id}`}><div className="text-xl font-bold mt-2">{title}</div></Link>
 
       <div className="flex items-center gap-2">
         {/* tuition type */}
@@ -138,7 +140,7 @@ const TuitionCard = ({ tuition }) => {
           </h3>
         </div>
         <div className="">
-          <Button>View Details</Button>
+          <Link href={`/tuition-list/${tuition._id}`}><Button>View Details</Button></Link>
           
         </div>
       </div>

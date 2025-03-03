@@ -57,6 +57,13 @@ export const rootApi = createApi({
         return response;
       },
         
+    }),
+    getTuitionDetails: builder.query({
+      query: (id) => `/user/tuitions/${id}`,
+      method: "GET",
+      transformResponse: (response) => {
+        return response;
+      }
     })
   }),
 });
@@ -65,5 +72,6 @@ export const {
   useGetLocationsQuery,
   useGetMediumsQuery,
   useGetClassesQuery,
-  useGetFilteredTuitionsQuery
+  useGetFilteredTuitionsQuery,
+  useGetTuitionDetailsQuery
 } = rootApi;
