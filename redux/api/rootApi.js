@@ -56,7 +56,7 @@ export const rootApi = createApi({
       transformResponse: (response) => {
         return response;
       },
-        // providesTags: ["Tuitions"],
+        
     })
   }),
 });

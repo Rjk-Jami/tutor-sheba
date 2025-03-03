@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const SearchTution = () => {
   return (
-    <div className="container mx-auto px-4 relative z-20 mb-10 ">
+    <div className="container mx-auto px-4 relative z-20 mb-10  ">
       <h1 className="text-black text-3xl lg:text-4xl text-center font-bold">
         SEARCH TUTORING JOBS
       </h1>

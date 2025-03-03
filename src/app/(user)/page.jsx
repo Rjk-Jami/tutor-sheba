@@ -7,7 +7,9 @@ export default function Home() {
     <div className="relative ">
       <div className=""></div>
       <FindTutorBanner />
+      <div className="pt-20">
       <SearchTution></SearchTution>
+      </div>
     </div> 
   );
 }

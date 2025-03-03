@@ -76,20 +76,20 @@ const FindTutorBanner = () => {
       </div>
       <div className="container relative z-20 mx-auto grid grid-cols-1 lg:grid-cols-12 items-center justify-center lg:justify-normal px-4">
         <div className="lg:col-span-8  ">
-          <h2 className="text-3xl  md:text-5xl font-bold text-[#800080] text-center lg:text-left ">
+          <h2 className="text-3xl  md:text-5xl lg:font-bold font-semibold  text-[#800080] text-center lg:text-left ">
             Best{" "}
             <span className="text-brand-2 relative after:absolute after:w-full after- pb-2 after:h-6 after:bg-[#3c65f5] text-[#3c65f5] after:opacity-10 after:bottom-1 after:left-0 after:-z-10">
-              Tutoring Platform
+              Tutoring Platform{" "}
             </span>
             <br className="hidden lg:block " />
             <span className="mt-2 leading-relaxed">
-              for Home <br className="lg:hidden block " />
+              for<br className="lg:hidden block" /> Home 
               &amp; Online Tuitions
             </span>
           </h2>
           <div className="flex items-center space-x-2 mt-2 justify-center lg:justify-start">
             <MdLocationOn className="text-3xl text-muted " />
-            <span className="text-2xl font-normal text-muted ">
+            <span className="text-xl lg:text-2xl font-normal text-muted ">
               Find the Right Tutor in Your Area
             </span>
           </div>

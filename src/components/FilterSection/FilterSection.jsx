@@ -12,7 +12,7 @@ const FilterSection = () => {
   return (
    
       <div className="flex flex-col">
-        <div className="mt-5">
+        <div className="">
           <h1 className="text-2xl font-bold text-black">Advance Filter</h1>
         </div>
         <Underline className="h-[1px] bg-[#b4c0e0] mb-6 mt-3"></Underline>
