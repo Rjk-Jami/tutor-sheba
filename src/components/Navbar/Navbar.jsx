@@ -21,14 +21,14 @@ const Navbar = () => {
   const role = useSelector((state) => state.auth.role);
   const dispatch = useDispatch();
 
-  const [logout, { isLoading }] = useLogoutMutation()
-const handleLogout = async () => {
-  try {
-    await logout()
-  } catch (error) {
-    console.error("Logout failed:", error?.error?.data || error);
-  }
-}
+  const [logout, { isLoading }] = useLogoutMutation();
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (error) {
+      console.error("Logout failed:", error?.error?.data || error);
+    }
+  };
   const authMenu = (
     <>
       {user ? (
@@ -48,9 +48,10 @@ const handleLogout = async () => {
                 <div className="flex items-center justify-center gap-2">
                   <FaUser className="text-base text-black" />
                   <Link
-                    href={`${
-                      role === "student" ? "/student/profile" : "/tutor/profile"
-                    }`}
+                    href={`
+                       #
+                      `}
+                    // ${ role === "student" ? "/student/profile" : "/tutor/profile"}
                     className="text-md"
                   >
                     Profile
@@ -69,7 +70,7 @@ const handleLogout = async () => {
             </ul>
           </div>
           <Link href="/" className="">
-            <IoNotificationsSharp  className="text-2xl text-yellow-400"/>
+            <IoNotificationsSharp className="text-2xl text-yellow-400" />
           </Link>
         </div>
       ) : (
