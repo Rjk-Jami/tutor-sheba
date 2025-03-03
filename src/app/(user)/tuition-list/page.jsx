@@ -5,6 +5,7 @@ import { useGetFilteredTuitionsQuery } from "../../../../redux/api/rootApi";
 import Pagination from "@/components/Pagination/Pagination";
 import { setLimit, setPage } from "../../../../redux/filter/commonFilterSlice";
 import { IoMdArrowDropdown } from "react-icons/io";
+import TuitionCard from "@/components/TuitionJobs/TuitionCard/TuitionCard";
 
 const TuitionList = () => {
   const dispatch = useDispatch();
@@ -24,8 +25,6 @@ const TuitionList = () => {
       state.tutorPreference.tutorPreferenceType
     ).filter((key) => state.tutorPreference.tutorPreferenceType[key]),
   }));
-
- 
 
   const { data, error, isLoading } = useGetFilteredTuitionsQuery({
     filters,
@@ -57,27 +56,50 @@ const TuitionList = () => {
                 <div
                   tabIndex={0}
                   role="button"
-                  className="flex items-center gap-2 text-muted border border-muted px-2 py-1.5 rounded-md"
+                  className="flex items-center gap-2 text-muted border border-muted px-2 py-1.5 rounded-md "
                 >
                   <span className="text-sm font-semibold ">Show: {limit}</span>
                   <IoMdArrowDropdown className="text-sm " />
                 </div>
-                <div tabIndex={0} className="dropdown-content join w-full  join-vertical">
-                  <button onClick={()=>dispatch(setLimit(5))} className="btn btn-sm join-item">5</button>
-                  <button onClick={()=>dispatch(setLimit(10))} className="btn btn-sm join-item">10</button>
-                  <button onClick={()=>dispatch(setLimit(15))} className="btn btn-sm join-item">15</button>
-                  <button onClick={()=>dispatch(setLimit(20))} className="btn btn-sm join-item">20</button>
+                <div
+                  tabIndex={0}
+                  className="dropdown-content join w-full  join-vertical z-20"
+                >
+                  <button
+                    onClick={() => dispatch(setLimit(5))}
+                    className="btn btn-sm join-item"
+                  >
+                    5
+                  </button>
+                  <button
+                    onClick={() => dispatch(setLimit(10))}
+                    className="btn btn-sm join-item"
+                  >
+                    10
+                  </button>
+                  <button
+                    onClick={() => dispatch(setLimit(15))}
+                    className="btn btn-sm join-item"
+                  >
+                    15
+                  </button>
+                  <button
+                    onClick={() => dispatch(setLimit(20))}
+                    className="btn btn-sm join-item"
+                  >
+                    20
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         )}
       </div>
-        <div className="">
-          {data?.data?.map((tuition, tuitionIndex) => (
-            <div key={tuitionIndex} className="">{tuition.title}</div>
-          ))}
-        </div>
+      <div className="flex flex-col gap-4 mt-4">
+        {data?.data?.map((tuition, tuitionIndex) => (
+          <TuitionCard tuition={tuition} key={tuitionIndex} />
+        ))}
+      </div>
       {/* Pagination Controls */}
       {data?.meta && (
         <Pagination
