@@ -8,17 +8,17 @@ import { setTutorPreference } from '../../../../redux/filter/tutorPreferenceSlic
 
 const tutorPreferenceOptions = [
   {
-    id: "all",
+    id: "All",
     label: "All",
     icon: <IoMaleFemale  className="text-[#92096d]" />,
   },
   {
-    id: "male",
+    id: "Male",
     label: "Male",
     icon: <IoMale className="text-[#92096d]" />,
   },
   {
-    id: "female",
+    id: "Female",
     label: "Female",
     icon: <IoFemale  className="text-[#92096d]" />,
   },

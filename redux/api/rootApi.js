@@ -50,10 +50,13 @@ export const rootApi = createApi({
     getFilteredTuitions: builder.query({
       query: ({ filters, page, limit }) => ({
         url:"/user/tuitions",
-        method:"POST",
+        method:"GET",
         params:{...filters,page,limit}
-      })
-        
+      }),
+      transformResponse: (response) => {
+        return response;
+      },
+        // providesTags: ["Tuitions"],
     })
   }),
 });

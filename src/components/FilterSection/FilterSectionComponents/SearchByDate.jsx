@@ -17,7 +17,7 @@ const SearchByDate = () => {
     const selectedDate = e.target.value;
     if (selectedDate > today) {
       toast.error("Start date cannot be in the future!");
-      return;
+      
     }
     dispatch(setStartDate(selectedDate));
   };
@@ -27,7 +27,7 @@ const SearchByDate = () => {
     const selectedDate = e.target.value;
     if (selectedDate > today) {
       toast.error("End date cannot be in the future!");
-      return;
+      
     }
     dispatch(setEndDate(selectedDate));
   };

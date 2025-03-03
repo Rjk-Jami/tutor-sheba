@@ -17,11 +17,7 @@ const SelectArea = () => {
   const dispatch = useDispatch();
   const area = useSelector((state) => state.filters.area);
 
-  useEffect(() => {
-    if (selectedDistrict === "All") {
-      setArea("All");
-    }
-  }, [selectedDistrict]);
+
   return (
     <div>
       <FilterHeader>Select Area</FilterHeader>

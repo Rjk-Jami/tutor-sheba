@@ -3,10 +3,10 @@ const { createSlice } = require("@reduxjs/toolkit");
 
 const initialState = {
   jobId: "",
-  district:"All",
-  area:"All",
-  medium:"All",
-  classOfMedium:"All",
+  district:"",
+  area:"",
+  medium:"",
+  classOfMedium:"",
   pagination: {
     page: 1,
     limit: 10,
