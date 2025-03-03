@@ -83,7 +83,7 @@ const RegisterTutor = () => {
         role: "tutor",
       };
       try {
-        console.log(userInfo, "userInfo");
+        // console.log(userInfo, "userInfo");
         const result = await registration({userInfo}).unwrap();
         // console.log(result)
         if (result?.success) {

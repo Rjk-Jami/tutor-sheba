@@ -66,7 +66,7 @@ export const authApi = rootApi.injectEndpoints({
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
           const res = await queryFulfilled;
-          console.log(res);
+          // console.log(res);
           dispatch(logout());
         } catch (error) {
           // console.error("Logout failed:", error?.error?.data || error);

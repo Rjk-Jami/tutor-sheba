@@ -36,7 +36,7 @@ const TuitionList = () => {
   const totalPages = Math.ceil(data?.meta?.totalPages / limit);
   const startIndex = (data?.meta?.currentPage - 1) * limit + 1;
   const endIndex = Math.min(startIndex + limit - 1, data?.meta?.totalTuitions);
-  console.log(data, "data");
+  // console.log(data, "data");
   return (
     <div className="min-h-screen bg-white">
       <div className="container mx-auto px-4">

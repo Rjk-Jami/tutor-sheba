@@ -31,7 +31,7 @@ const RegisterStudent = () => {
     },
     validationSchema: schema,
     onSubmit: async (values, { setSubmitting, setErrors }) => {
-      console.log("Form Submitted with values:", values);
+      // console.log("Form Submitted with values:", values);
 
       const userInfo = {
         userDetails: {

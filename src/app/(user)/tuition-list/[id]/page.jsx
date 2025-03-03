@@ -27,7 +27,8 @@ const TuitionDetails = () => {
   const user = useSelector((state) => state.auth.user);
   const { id } = useParams();
   const { data, error, isLoading } = useGetTuitionDetailsQuery(id);
-  console.log(data);
+//   console.log(data);
+
   const {
     jobId,
     title,

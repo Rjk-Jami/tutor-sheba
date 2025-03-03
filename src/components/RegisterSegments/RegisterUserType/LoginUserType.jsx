@@ -13,7 +13,7 @@ const LoginUserType = () => {
   const handleToggle = (userType) => {
     dispatch(setLoginUserType({ userType }));
   };
-  console.log(userOption);
+  // console.log(userOption);
   return (
     <UserTypeBox handleToggle={handleToggle} userOption={userOption}></UserTypeBox>
 
